@@ -5,7 +5,6 @@ import (
     "net/http"
     "io"
     "io/ioutil"
-    "fmt"
 )
 
 
@@ -29,6 +28,8 @@ func postData (w http.ResponseWriter, r *http.Request){
     if  err:=r.Body.Close (); err!=nil{
         panic (err)
     }
+    //fmt.Println (json.Encode (body))
+    
     if err := json.Unmarshal(body, &u); err != nil {
         w.Header().Set("Content-Type", "application/json; charset=UTF-8")
         w.WriteHeader(422) // unprocessable entity
@@ -36,11 +37,15 @@ func postData (w http.ResponseWriter, r *http.Request){
             panic(err)
         }
     }
+    
+    //if err:=json.NewDecoder (r.Body).Decode (&u); err!=nil{
+      //  panic (err)
+    //}
 
-    u=createUser (u)
+    user:=createUser (u)
     w.Header().Set("Content-Type", "application/json; charset=UTF-8")
     w.WriteHeader(http.StatusCreated)
-    if err := json.NewEncoder(w).Encode(u); err != nil {
+    if err := json.NewEncoder(w).Encode(user); err != nil {
         panic(err)
 
 
