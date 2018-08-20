@@ -12,7 +12,7 @@ import(
 
 
 func display(w http.ResponseWriter, r *http.Request){
-	db,err := sql.Open("mysql", "root:<password>@/gotest")
+	db,err := sql.Open("mysql", "root:lolseeyou123@/gotest")
 	if err!=nil {
 		panic(err)
 	}
@@ -33,10 +33,31 @@ func display(w http.ResponseWriter, r *http.Request){
 		fmt.Println(id)
 		fmt.Println(sntc)
 		fmt.Println(auth)
-		
 	}
+	
 }
 
 func add(w http.ResponseWriter, r *http.Request){
-	fmt.Println("here")
+	db,err := sql.Open("mysql", "root:lolseeyou123@/gotest")
+	if err!=nil {
+		panic(err)
+	}
+
+	stmt,err:=db.Prepare("INSERT INTO quote(sentence,author) VALUES (?,?)")
+	if err!=nil {
+		panic(err)
+	}
+
+	res,err := stmt.Exec("ggwp","pro")
+	if err!=nil {
+		panic(err)
+	}
+
+	id,err := res.LastInsertId()
+	if err!=nil {
+		panic(err)
+	}
+
+	fmt.Println(id)
+
 }
