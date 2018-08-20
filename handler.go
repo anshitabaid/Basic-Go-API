@@ -5,6 +5,11 @@ import (
     "net/http"
     "io"
     "io/ioutil"
+    //"log"
+    //"fmt"
+    _ "github.com/go-sql-driver/mysql"
+    //"github.com/jinzhu/gorm"
+        //_  //"github.com/jinzhu/gorm/dialects/mysql"
 )
 
 
@@ -19,6 +24,9 @@ func getData (w http.ResponseWriter, r *http.Request){
 
 
 func postData (w http.ResponseWriter, r *http.Request){
+    db:=dbConn()
+    //user:=User{Username: "user1", Password: "pass1"}
+    //db.Create (&user)
     var u User
     body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
     //fmt.Println (json.Marshal(body))
@@ -41,12 +49,20 @@ func postData (w http.ResponseWriter, r *http.Request){
     //if err:=json.NewDecoder (r.Body).Decode (&u); err!=nil{
       //  panic (err)
     //}
-
+    db.Create (&u)
+    w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+    w.WriteHeader(http.StatusCreated)
+    if err := json.NewEncoder(w).Encode(u); err != nil {
+        panic(err)
+    /*
     user:=createUser (u)
     w.Header().Set("Content-Type", "application/json; charset=UTF-8")
     w.WriteHeader(http.StatusCreated)
     if err := json.NewEncoder(w).Encode(user); err != nil {
         panic(err)
+    //u1,_:=json.Marshal(u)
+    db.Create (&body)
+    */
 
 
     }
