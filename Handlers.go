@@ -12,11 +12,11 @@ import(
 
 
 func display(w http.ResponseWriter, r *http.Request){
-	db,err := sql.Open("mysql", "root:lolseeyou123@/gotest")
+	db,err := sql.Open("mysql", "root:<password>@/gotest")
 	if err!=nil {
 		panic(err)
 	}
-	fmt.Println(err)
+	
 	rows,err := db.Query("SELECT * FROM quote")
 	if err!=nil {
 		panic(err)
@@ -38,7 +38,7 @@ func display(w http.ResponseWriter, r *http.Request){
 }
 
 func add(w http.ResponseWriter, r *http.Request){
-	db,err := sql.Open("mysql", "root:lolseeyou123@/gotest")
+	db,err := sql.Open("mysql", "root:<password>@/gotest")
 	if err!=nil {
 		panic(err)
 	}
