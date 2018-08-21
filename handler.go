@@ -7,6 +7,7 @@ import (
     "io/ioutil"
     //"log"
     //"fmt"
+    //"reflect"
     _ "github.com/go-sql-driver/mysql"
     //"github.com/jinzhu/gorm"
         //_  //"github.com/jinzhu/gorm/dialects/mysql"
@@ -15,6 +16,9 @@ import (
 
 
 func getData (w http.ResponseWriter, r *http.Request){
+    db:=dbConn ()
+    users:=db.Find(&users).Value
+    //fmt.Println(reflect.TypeOf (users))
     w.Header().Set("Content-Type", "application/json; charset=UTF-8")
     w.WriteHeader (http.StatusOK)
     if err := json.NewEncoder(w).Encode(users); err != nil {
