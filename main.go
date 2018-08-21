@@ -2,14 +2,39 @@ package main
 
 import (
     //"fmt"
+    //"os"
     "log"
+    //"encoding/json"
+    //"reflect"
+    //"io/ioutil"
     "net/http"
     _ "github.com/go-sql-driver/mysql"
     "github.com/jinzhu/gorm"
  _  "github.com/jinzhu/gorm/dialects/mysql"
 )
 
+type  DBCred struct
+
+{
+    Username string `json:"username"`
+    Password string `json:"password"`
+    Name string     `json:"name"`
+} 
+
 func dbConn() (db *gorm.DB){
+    /*
+    var cred DBCred
+    configFile, err:=os.Open ("config.json")
+    defer configFile.Close ()
+    if err!=nil{
+        log.Println (err)
+    }
+    log.Println ("Opened config.json")
+    jsonParser:=json.NewDecoder (configFile)
+    jsonParser.Decode (&cred)
+    fmt.Println (cred)
+    */
+    
     db, err := gorm.Open("mysql", "gouser:gopassword@/userdb")
     //defer db.Close()
     if err!=nil{
@@ -23,16 +48,6 @@ func dbConn() (db *gorm.DB){
 }
 
 func main (){
-    
-    //db.Debug().DropTableIfExists(&User{}) 
-    //Drops table if already exists
-    //db.Debug().AutoMigrate(&User{}) 
-    //db.CreateTable(&User{})
-    //user:=User{Username: "user1", Password: "pass1"}
-    //fmt.Println(db.NewRecord (user))
-    //db.Create(&user)
-    //fmt.Println(db.NewRecord(user) )
-    //db.Find (&user)
     router:=NewRouter()
     log.Fatal (http.ListenAndServe(":8080", router))
 

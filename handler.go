@@ -29,11 +29,8 @@ func getData (w http.ResponseWriter, r *http.Request){
 
 func postData (w http.ResponseWriter, r *http.Request){
     db:=dbConn()
-    //user:=User{Username: "user1", Password: "pass1"}
-    //db.Create (&user)
     var u User
     body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
-    //fmt.Println (json.Marshal(body))
     if err!=nil{
         panic (err)
     }

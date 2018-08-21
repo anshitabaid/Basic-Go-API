@@ -1,0 +1,7 @@
+{
+ "database":{
+    "username":"gouser",
+    "password":"gopassword",
+    "name":"userdb"
+ }   
+}

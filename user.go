@@ -8,3 +8,4 @@ type User struct {
 }
 
 type Users []User //list of users
+var users Users
