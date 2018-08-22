@@ -1,7 +1,7 @@
 package main 
 
 type Quote struct {
-	sentence string 
-	author string 
+	sentence string `json:"sentence"`
+	author string `json:"author"`
 }
 
