@@ -35,7 +35,7 @@ func dbConn() (db *gorm.DB){
     fmt.Println (cred)
     */
     
-    db, err := gorm.Open("mysql", "gouser:gopassword@/userdb")
+    db, err := gorm.Open("mysql", "root:<password>@/gotest")
     //defer db.Close()
     if err!=nil{
         panic(err)
