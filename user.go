@@ -8,4 +8,12 @@ type User struct {
 }
 
 type Users []User //list of users
-var users Users
+var users 
+
+type Resp struct {
+    Success string  `json:"success"`
+    Message string  `json:"message"`
+    Data struct {
+        Username string  `json:"userame"`
+    }`json:"data"`
+}
