@@ -1,15 +1,23 @@
 package main
 
 import (
-    "github.com/gorilla/securecookie"
-    )
+    "net/http"
+    "encoding/json"
+    "io/ioutil"
+    "io"
+    "fmt"
+)
 
 
 func internalPageHandler (w http.ResponseWriter, r *http.Request){
+    username:=getUserName(r)
+    if username==""{
+        http.Redirect (w,r, "/", 302)
+    }
     var resp Resp
-    resp.Success='true'
-    resp.Message='You are logged in'
-    resp.Data.Username=getUserName (r)
+    resp.Success="true"
+    resp.Message="You are logged in"
+    resp.Data.Username=username
     w.Header().Set("Content-Type", "application/json; charset=UTF-8")
     w.WriteHeader (http.StatusOK)
     if err := json.NewEncoder(w).Encode(resp); err != nil {
@@ -19,9 +27,16 @@ func internalPageHandler (w http.ResponseWriter, r *http.Request){
 
 func indexPageHandler (w http.ResponseWriter, r *http.Request){
     var resp Resp
-    resp.Success='false'
-    resp.Message='You are not logged in'
+    username:=getUserName (r)
+    if username==""{
+    resp.Success="false"
+    resp.Message="You are not logged in"
     resp.Data.Username=""
+    } else {
+        resp.Success="true"
+        resp.Message="You are logged in"
+        resp.Data.Username=""
+    }
     w.Header().Set("Content-Type", "application/json; charset=UTF-8")
     w.WriteHeader (http.StatusOK)
     if err := json.NewEncoder(w).Encode(resp); err != nil {
@@ -44,13 +59,12 @@ func loginHandler (w http.ResponseWriter, r *http.Request){
         w.WriteHeader(422) // unprocessable entity
         
         }
-    name=u.Username 
-    pass=u.Password
+    name:=u.Username 
+    pass:=u.Password
     redirectTarget:="/"
-    if name!="" && pass!=""{
-        if pass=="password" && username=="username"
-        {
-            setSession (name, response)
+    if name!="" && pass!="" { 
+        if pass=="password" && name=="username"{
+            setSession (name, w)
             redirectTarget ="/internal"
         }
     }
@@ -66,5 +80,6 @@ func loginHandler (w http.ResponseWriter, r *http.Request){
 
 func logoutHandler (response http.ResponseWriter, request *http.Request){
     clearSession (response)
+    fmt.Printf (getUserName (request))
     http.Redirect (response, request, "/", 302)
 }

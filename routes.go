@@ -2,8 +2,8 @@ package main
 import (
     "net/http"
     "github.com/gorilla/mux"
-    "github.com/gorilla/securecookie"
-    "fmt"
+    //"github.com/gorilla/securecookie"
+    //"fmt"
 )
 
 type Route struct {
@@ -35,16 +35,16 @@ var routes=Routes{
         "postData", "POST", "/postdata", postData,
     },
     Route {
-        "internalPageHandler", "GET", "/internal", internalPageHandler
+        "internalPageHandler", "GET", "/internal", internalPageHandler,
     },
     Route {
-        "indexPageHandler", "GET", "/", indexPageHandler
+        "indexPageHandler", "GET", "/", indexPageHandler,
     }, 
     Route {
-        "loginHandler","POST", "/login", loginHandler
+        "loginHandler","POST", "/login", loginHandler,
     },
     Route {
-        "logoutHandler", "/POST" , "/logout", logoutHandler
+        "logoutHandler", "POST" , "/logout", logoutHandler,
     },
 }
 

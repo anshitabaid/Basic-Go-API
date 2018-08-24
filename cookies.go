@@ -2,10 +2,11 @@ package main
 
 import (
     "github.com/gorilla/securecookie"
+    "net/http"
     )
 
 var cookieHandler =securecookie.New (
-    securecookie.GeerateRandomKEy (64), 
+    securecookie.GenerateRandomKey (64), 
     securecookie.GenerateRandomKey (32))
 
 
