@@ -1,11 +1,11 @@
 package main
 
 import (
+	"fmt"
     "net/http"
     "encoding/json"
     "io/ioutil"
     "io"
-    "fmt"
     //"time"
 )
 
@@ -30,14 +30,14 @@ func indexPageHandler (w http.ResponseWriter, r *http.Request){
     var resp Resp
     username:=getUserName (r)
     if username==""{
-        fmt.Printf("hihihihih")
-    resp.Success="false"
-    resp.Message="You are not logged in"
-    resp.Data.Username=""
+        fmt.Printf ("We are here")
+        resp.Success="false"
+        resp.Message="You are not logged in"
+        resp.Data.Username=""
     } else {
         resp.Success="true"
         resp.Message="You are logged in"
-        resp.Data.Username=""
+        resp.Data.Username=username
     }
     w.Header().Set("Content-Type", "application/json; charset=UTF-8")
     w.WriteHeader (http.StatusOK)
@@ -80,9 +80,18 @@ func loginHandler (w http.ResponseWriter, r *http.Request){
         */
 }
 
-func logoutHandler (response http.ResponseWriter, request *http.Request){
-    clearSession (response)
+func logoutHandler (w http.ResponseWriter, r *http.Request){
+    clearSession (w)
     //fmt.Printf (getUserName (request))
     //time.Sleep (1*time.Second)
-    http.Redirect (response, request, "/", 302)
+    //http.Redirect (response, request, "/", 302)
+    var resp Resp
+    resp.Success="true"
+    resp.Message="You are logged out"
+    resp.Data.Username=""//getUserName(r)
+    w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+    w.WriteHeader (http.StatusOK)
+    if err := json.NewEncoder(w).Encode(resp); err != nil {
+        panic(err)
+    }
 }
