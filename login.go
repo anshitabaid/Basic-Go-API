@@ -6,6 +6,7 @@ import (
     "io/ioutil"
     "io"
     "fmt"
+    //"time"
 )
 
 
@@ -29,6 +30,7 @@ func indexPageHandler (w http.ResponseWriter, r *http.Request){
     var resp Resp
     username:=getUserName (r)
     if username==""{
+        fmt.Printf("hihihihih")
     resp.Success="false"
     resp.Message="You are not logged in"
     resp.Data.Username=""
@@ -80,6 +82,7 @@ func loginHandler (w http.ResponseWriter, r *http.Request){
 
 func logoutHandler (response http.ResponseWriter, request *http.Request){
     clearSession (response)
-    fmt.Printf (getUserName (request))
+    //fmt.Printf (getUserName (request))
+    //time.Sleep (1*time.Second)
     http.Redirect (response, request, "/", 302)
 }
