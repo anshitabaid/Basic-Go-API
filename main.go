@@ -14,7 +14,7 @@ import (
 )
 
 type  DBCred struct
-{   GOING THROUGH A LOT RN string
+{   Password_re string
    NAME string
     Username string `json:"username"`
     Password string `json:"password"`
