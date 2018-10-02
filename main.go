@@ -1,4 +1,4 @@
-package main 
+package main
 
 import (
     //"fmt"
@@ -14,8 +14,8 @@ import (
 )
 
 type  DBCred struct
-
-{
+{   GOING THROUGH A LOT RN string
+   NAME string
     Username string `json:"username"`
     Password string `json:"password"`
     Name string     `json:"name"`
