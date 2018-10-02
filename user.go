@@ -1,8 +1,8 @@
-package main 
+package main
 
 
 type User struct {
-    String nigga="me";
+    Name        string 
     Id          int     `gorm:"primary_key"; "AUTO_INCREMENT"`
     Username    string  `gorm: "username"; "size:255"`
     Password    string  `gorm: "password"; "size:255"`

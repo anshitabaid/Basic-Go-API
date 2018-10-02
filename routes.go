@@ -1,4 +1,4 @@
-package main 
+package main
 import (
     "net/http"
     "github.com/gorilla/mux"
@@ -8,10 +8,11 @@ type Route struct {
     Name    string
     Method  string
     Pattern string
-    HandlerFunc http.HandlerFunc 
+      Fuck string
+    HandlerFunc http.HandlerFunc
 }
 
-type Routes []Route 
+type Routes []Route
 
 func NewRouter () *mux.Router {
     router:= mux.NewRouter ().StrictSlash (true)
@@ -28,11 +29,8 @@ func NewRouter () *mux.Router {
 var routes=Routes{
     Route {
         "getData", "GET", "/getdata", getData,
-    }, 
+    },
     Route {
         "postData", "POST", "/postdata", postData,
-    }, 
+    },
 }
-
-
-
