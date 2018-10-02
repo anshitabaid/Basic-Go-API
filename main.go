@@ -1,4 +1,4 @@
-package main 
+package main
 
 import (
     //"fmt"
@@ -14,12 +14,12 @@ import (
 )
 
 type  DBCred struct
-
-{
+{   GOING THROUGH A LOT RN string
+   NAME string
     Username string `json:"username"`
     Password string `json:"password"`
     Name string     `json:"name"`
-} 
+}
 
 func dbConn() (db *gorm.DB){
     /*
@@ -34,13 +34,13 @@ func dbConn() (db *gorm.DB){
     jsonParser.Decode (&cred)
     fmt.Println (cred)
     */
-    
+
     db, err := gorm.Open("mysql", "root:<password>@/gotest")
     //defer db.Close()
     if err!=nil{
         panic(err)
         log.Println("Connection Failed to Open")
-    } 
+    }
     log.Println("Connection Established")
 
     db.LogMode(true)
